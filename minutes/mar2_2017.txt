@@ -1,9 +1,9 @@
 Group 1:
-	Daniel Wolff - wolffd
-	Harsh Patel -
-	Rafay Leghari -
-	Saad Khan - 
-	Thomas Dykstra - 
+	Daniel Wolff
+	Harsh Patel 
+	Rafay Leghari 
+	Saad Khan  
+	Thomas Dykstra  
 
 Attendance: all
 
