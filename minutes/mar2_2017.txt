@@ -1,0 +1,25 @@
+Group 1:
+	Daniel Wolff - wolffd
+	Harsh Patel -
+	Rafay Leghari -
+	Saad Khan - 
+	Thomas Dykstra - 
+
+Attendance: all
+
+Discussion:
+	- Overview of project goals: make sure everyone understands what the project is.
+	- Review of the dataset: what it provides, what we need, how we are going to process it.
+	- Assignment of roles: who is going to do what.
+
+Notes:
+	- Push back research into scanner - we need to focus more on the actual contents of the project (algorithms, etc), rather than the fancy UI.
+	- Dataset only provides ASIN (Amazon Standard Identification Number), which is a problem if we want to search the dataset using a UPC (Universal Product Code) from a barcode. 
+	- After looking into ASIN to UPC conversions, we decided to try and use the Amazon Product Advertising API to lookup the ASIN given a UPC. The plan would be to use this API to convert the ASIN's in our dataset to UPC, and then use this updated dataset in out project. 
+	- The original dataset doesn't guarantee a product to have a price, so it may be worth looking into getting a slightly different dataset, or possibly using an Amazon API to find the price for us. 
+
+TODO:
+	- Successfully convert all ASIN's to UPC.
+	- Find a dataset of products that have ASIN/UPC and prices OR create our own.
+	- Determine algorithms to use to process data.
+	- Possibly work with Scanner libraries (optional).
