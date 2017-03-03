@@ -1,0 +1,32 @@
+Group 1:
+	Daniel Wolff
+	Harsh Patel 
+	Rafay Leghari 
+	Saad Khan  
+	Thomas Dykstra  
+
+Attendance: all
+
+Discussion:
+	- How are we going to process the data? (9.4 million products, each with many fields of data - 3.1GB zipped, 11GB unzipped)
+	- Plans for the scanner
+	- Change in implementation (see notes)
+
+Notes:
+	- Merge sort seems like our best bet - it's stable and quick.
+	- Our dataset might be too large to sort all at once - sort in tenths and save in individual csv files, and then merge those files one by one.
+	- Implementation plan: scan UPC or EAN, search for corresponding ASIN using Amazon API, search dataset for ASIN.
+		- Kind of uneccessary, since the API returns the data we need anyways. Because of this, we will treat UPC/EAN to ASIN conversion as a black box, only using the API to access information if an ASIN can't be found in our dataset.
+
+DONE:
+	- Built Amazon API scraper for retrieving ASIN's and UPC's.
+	- Read data out of dataset with a Python script.
+
+TODO:
+	- Revise Milestone 1
+		- Objectives and Scopes: what are the objectives? Mention file size problems.
+		- Project Planner: the chart we already have.
+		- Change roles to something more specific, include what they will do.
+		- Specify methodology (agile).
+	- Figure out how to trim our dataset.
+	- Possibly work with Scanner libraries (optional).
