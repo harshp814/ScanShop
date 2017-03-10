@@ -1,0 +1,27 @@
+Group 1:
+	Daniel Wolff
+	Harsh Patel 
+	Rafay Leghari 
+	Saad Khan  
+	Thomas Dykstra  
+
+Attendance: missing Saad, Rafay
+
+Discussion:
+	- Requirements and specification ideas/discussion.
+	- Revision of previously submitted document (milestone 1).
+
+Notes:
+	- Need to start working on Product ADT API.
+	- Need to experiment with Amazon Java API.
+
+DONE:
+	- Built Amazon API scraper for retrieving ASIN's and UPC's.
+	- Read data out of dataset with a Python script.
+	- Implement scanner on Android app.
+
+TODO:
+	- Determine a good name for our product.
+	- Figure out how to trim our dataset.
+	- Prepare requirements and specifications.
+	- Design API for a Product ADT.
