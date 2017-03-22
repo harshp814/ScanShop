@@ -16,3 +16,7 @@ LOG:
 		- decided on sorting algorithm to use (merge sort)
 		- built Python test script for scraping Amazon API for UPC to ASIN conversions
 
+	March 21, 2017:
+		- Added java project to remote repo
+		- Created gzipReader class to read the dataset
+		- Created Product ADT class to represent each object
