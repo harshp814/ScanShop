@@ -60,11 +60,18 @@ public class Product implements Comparable<Product> {
 	 * 		   0 if the products are priced the same
 	 */
 	public int compareTo(Product other) {
-		if (this.price < other.price())
-			return 1;
-		else if (this.price > other.price())
-			return -1;
-		else
-			return 0;
+		int x = ASIN.compareTo(other.asin());
+
+		if(x == 0){
+			if (price < other.price()){
+				return -1;
+			}else if(price > other.price()){
+				return 1;
+			}else{
+				return 0;
+			}
+		}else{
+			return x;
+		}
 	}
 }
