@@ -51,20 +51,27 @@ public class gzipReader {
 package file_processing;
 
 import java.io.BufferedReader;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.zip.GZIPInputStream;
 
 public class gzipReader {
-	private final String infile = "dataset_refined0.json.gz";
+	private final String infile = "dataset_refined0.json";
 	private FileInputStream file;
 	private GZIPInputStream in;
 	private Reader decoder;
-	private BufferedReader reader;
+	private FileReader reader;
+	private JSONParser parser = new JSONParser();
+	private JSONObject jsonObject;
 	
 	public gzipReader() {
 		fileInit();
@@ -77,15 +84,37 @@ public class gzipReader {
       */
 	private void fileInit() {
 		try {
-			file = new FileInputStream(infile); 
-			in = new GZIPInputStream(file);
-			decoder = new InputStreamReader(in);
-			reader = new BufferedReader(decoder);
-		} catch (FileNotFoundException e) {
+			reader = new FileReader(infile);
+			JSONArray a = (JSONArray) parser.parse(reader);	
+			
+			for (Object o : a)
+			  {
+			    JSONObject product = (JSONObject) o;
+			    
+			    String asin = (String) product.get("asin");
+			    System.out.println(asin);
+
+			    String title = (String) product.get("title");
+			    System.out.println(title);
+
+			    String ean = (String) product.get("ean");
+			    System.out.println(ean);
+
+			    String price = (String) product.get("price");
+			    System.out.println(price);
+			    		
+			    System.out.println();
+			    
+			  }
+			
+		} catch (FileNotFoundException e) {	
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}		
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
 	}
 	
 	/**
@@ -94,35 +123,11 @@ public class gzipReader {
 	 * @throws IOException
 	 */
 	public void read() throws IOException {		
-		String[] products = (reader.readLine()).split(",");	
 		
-		// this line to make sure the format of the very first product is the same as all others
-		products[0] = " " + (products[0].substring(10, products[0].length())); 
-		
-		// extracting the relevant data from each field for each product
-		// e.g. '"price": 15.95' becomes '15.95'
-		for (int i = 0; i < products.length; i++) {
-			if (products[i].contains("asin"))
-				products[i] = products[i].substring(11, products[i].length() - 1);
-			else if (products[i].contains("price"))
-				products[i] = products[i].substring(10, products[i].length() - 1);
-			else if (products[i].contains("ean"))
-				products[i] = products[i].substring(10, products[i].length() - 1);
-			else if (products[i].contains("title"))
-				products[i] = products[i].substring(10, products[i].length() - 1);
-		}
-		
-		// for visibility purposes 
-		String[] temp = {"asin", "price", "upc/ean", "title"};
-		for (int i = 0; i < 1000; i++)
-			System.out.println(products[i] + "\t" + temp[i%temp.length]);
-		reader.close();
 		
 	}
 	
 	public static void main(String[] args) throws IOException {
-		gzipReader reader = new gzipReader();
-		reader.fileInit();
-		reader.read();	
+		gzipReader reader = new gzipReader();		
 	}	
 }
