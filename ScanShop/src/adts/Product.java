@@ -1,10 +1,10 @@
 package adts;
 
 public class Product implements Comparable<Product> {
-	private int asin;
+	private String asin;
 	private String title;
-	private int upc;
 	private double price;
+	private String id; // either upc or ean code
 
 	/**
 	 * Constructor method for product 
@@ -13,19 +13,18 @@ public class Product implements Comparable<Product> {
 	 * @param price The price of the product
 	 * @param upc Universal product code, or international article number (EAN)
 	 */
-	public Product(int asin, String title, int price, int upc) {
+	public Product(String asin, String title, double price, String id) {
 		this.asin = asin;
 		this.title = title;
-		this.upc = upc;
+		this.id = id;
 		this.price = price;
-		this.upc = upc;
 	}
 	
 	/**
 	 * Getter for the asin
 	 * @return The asin of the product
 	 */
-	public int asin() {
+	public String asin() {
 		return this.asin;
 	}
 	
@@ -38,19 +37,19 @@ public class Product implements Comparable<Product> {
 	}
 	
 	/**
-	 * Getter for the UPC
-	 * @return The UPC code of the product
-	 */
-	public int upc() {
-		return this.upc;
-	}
-	
-	/**
 	 * Getter for the price
 	 * @return The price of the product
 	 */
 	public double price() {
 		return this.price;
+	}
+	
+	/**
+	 * Getter for the UPC
+	 * @return The UPC code of the product
+	 */
+	public String id() {
+		return this.id;
 	}
 
 	/**
@@ -62,15 +61,23 @@ public class Product implements Comparable<Product> {
 	 * 		   0 if both products have the same asin and price
 	 */
 	public int compareTo(Product other) {
-		if (this.asin < other.asin)
+		if (asin.compareTo(other.asin()) > 0)
 			return 1;
-		else if	 (this.asin > other.asin)
+		else if	(asin.compareTo(other.asin()) < 0)
 			return -1;
-		else if (this.price < other.price)
-			return 1;
 		else if (this.price > other.price)
+			return 1;
+		else if (this.price < other.price)
 			return -1;
 		else 
 			return 0;	
+	}
+	
+	/**
+	 * 
+	 */
+	@Override
+	public String toString() {
+		return asin + ": (" + title + ") (" + price + ") (" + id +")";
 	}
 }

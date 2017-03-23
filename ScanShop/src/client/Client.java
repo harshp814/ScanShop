@@ -1,26 +1,14 @@
 package client;
 
+import adts.Product;
+import file_processing.JsonReader;
+import file_processing.MakeProductArray;
+
 public class Client {
-
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		Product[] parr = MakeProductArray.make(JsonReader.read());
+		for (int i = 0; i < parr.length; i++) 
+			System.out.println(parr[i].toString());
 	}
-	
-	public void sort(Product[] prods){
-		MergeSort.sort(prods);
-	}
-	
-	public Product find_with_asin(Product[] prods, String asin){
-		int ret = BinarySearch.indexOf(prods, asin);
-		
-		if(ret == -1){
-			return null;
-		}else{
-			return prods[ret];
-		}
-	}
-	
-	
-
 }
