@@ -1,4 +1,4 @@
-package pack;
+package client;
 
 public class Client {
 

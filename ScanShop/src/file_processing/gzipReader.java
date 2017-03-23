@@ -65,11 +65,11 @@ import java.io.Reader;
 import java.util.zip.GZIPInputStream;
 
 public class gzipReader {
-	private final String infile = "dataset_refined0.json";
+	private final String infile = "metadata.json";
 	private FileInputStream file;
 	private GZIPInputStream in;
 	private Reader decoder;
-	private FileReader reader;
+	private BufferedReader reader;
 	private JSONParser parser = new JSONParser();
 	private JSONObject jsonObject;
 	
@@ -84,10 +84,11 @@ public class gzipReader {
       */
 	private void fileInit() {
 		try {
-			reader = new FileReader(infile);
-			JSONArray a = (JSONArray) parser.parse(reader);	
 			
-			for (Object o : a)
+			reader = new BufferedReader(new FileReader(infile));
+			JSONObject a = (JSONObject) parser.parse(reader);	
+			
+/*			for (Object o : a)
 			  {
 			    JSONObject product = (JSONObject) o;
 			    
@@ -97,15 +98,13 @@ public class gzipReader {
 			    String title = (String) product.get("title");
 			    System.out.println(title);
 
-			    String ean = (String) product.get("ean");
-			    System.out.println(ean);
-
 			    String price = (String) product.get("price");
 			    System.out.println(price);
 			    		
 			    System.out.println();
-			    
-			  }
+			    */
+			  String asin = (String) a.get("'asin'");
+			  System.out.println(asin);
 			
 		} catch (FileNotFoundException e) {	
 			e.printStackTrace();
