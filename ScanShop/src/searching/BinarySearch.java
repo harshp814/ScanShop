@@ -15,37 +15,18 @@ public class BinarySearch {
      * @param asin The amazon standard identification number
      * @return The index of the product or -1 if no such product exists
      */
-    public static int indexOf(Product[] a, int asin) {
+    public static String titleOf(Product[] a, String asin) {
         int lo = 0;
         int hi = a.length - 1;
         while (lo <= hi) {
             int mid = lo + (hi - lo) / 2;
-            if (a[mid].asin() < asin) 
+            int cmp = a[mid].asin().compareTo(asin);
+            if (cmp > 0) 
             	hi = mid - 1;
-            else if (a[mid].asin() > asin) 
+            else if (cmp < 0) 
             	lo = mid + 1;
-            else return mid;
+            else return a[mid].title();
         }
-        return -1;
-    }
-    
-    /**
-     * Searches for a product using price
-     * @param a The input array of products
-     * @param price The price of the product 
-     * @return The index of the product or -1 if no such product exists 
-     */
-    public static int indexOf(Product[] a, String title) {
-        int lo = 0;
-        int hi = a.length - 1;
-        while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
-            if (a[hi].title().contains(title)) 
-            	hi = mid - 1;
-            else if (a[mid].title().contains(title)) 
-            	lo = mid + 1;
-            else return mid;
-        }
-        return -1;
+        return null;
     }
 }

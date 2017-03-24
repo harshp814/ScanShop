@@ -16,14 +16,17 @@ public class MakeProductArray {
 			String title = (String) product.get("title");
 			String asin = (String) product.get("asin");
 			double price = (double) product.get("price");
-			String upc = (String) product.get("ean");
-			String ean = (String) product.get("upc");
-			
-			if (upc != null)
+			long upc = 0;
+			long ean = 0;
+			if (product.get("upc") != null) {
+				upc = Long.parseLong(product.get("upc").toString());
 				productArray[i] = new Product(asin, title, price, upc);
-
-			else			
+			}
+			else {
+				ean = Long.parseLong(product.get("ean").toString());
 				productArray[i] = new Product(asin, title, price, ean);
+			}
+		
 		}
 		return productArray;
 	}

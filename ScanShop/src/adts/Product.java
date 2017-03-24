@@ -4,7 +4,7 @@ public class Product implements Comparable<Product> {
 	private String asin;
 	private String title;
 	private double price;
-	private String id; // either upc or ean code
+	private long id; // either upc or ean code
 
 	/**
 	 * Constructor method for product 
@@ -13,7 +13,7 @@ public class Product implements Comparable<Product> {
 	 * @param price The price of the product
 	 * @param upc Universal product code, or international article number (EAN)
 	 */
-	public Product(String asin, String title, double price, String id) {
+	public Product(String asin, String title, double price, long id) {
 		this.asin = asin;
 		this.title = title;
 		this.id = id;
@@ -48,7 +48,7 @@ public class Product implements Comparable<Product> {
 	 * Getter for the UPC
 	 * @return The UPC code of the product
 	 */
-	public String id() {
+	public long id() {
 		return this.id;
 	}
 
