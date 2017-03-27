@@ -15,7 +15,7 @@ public class MakeProductArray {
 			JSONObject product = (JSONObject) jsonArray.get(i);
 			String title = (String) product.get("title");
 			String asin = (String) product.get("asin");
-			double price = (double) product.get("price");
+			double price = Double.parseDouble((String)product.get("price"));
 			long upc = 0;
 			long ean = 0;
 			if (product.get("upc") != null) {
