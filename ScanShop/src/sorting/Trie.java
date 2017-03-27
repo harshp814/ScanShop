@@ -3,8 +3,7 @@ package sorting;
 import java.util.ArrayList;
 
 /**
- * Trie data structure used to store and search many Strings efficiently. Refers to Strings
- * by their ID (their position in the ProductADT array).
+ * Trie data structure used to store and search many Strings efficiently.
  * @author Group 1
  */
 public class Trie {
@@ -19,12 +18,12 @@ public class Trie {
 	private class Letter {
 		
 		// Each letter node holds a character, a pointer to the letter that refers to it,
-		// an arraylist of letters that extend from it, and an arraylist of the IDs of
-		// the words that terminate at this Letter.
+		// an arraylist of letters that extend from it, and a counter for how many words terminate
+		// at this character.
 		private char letter;
 		private Letter pre;
 		private ArrayList<Letter> next;
-		private ArrayList<Integer> words;
+		private int terminates;
 		
 		/**
 		 * Create a new letter with the given character and predecessor.
@@ -34,8 +33,7 @@ public class Trie {
 		public Letter(char letter, Letter pre) {
 			this.letter = letter;
 			this.pre = pre;
-			next = new ArrayList<Letter>();
-			words = new ArrayList<Integer>();
+			terminates = 0;
 		}
 	}
 
@@ -54,8 +52,6 @@ public class Trie {
 		
 		// TODO Add a word to the Trie.
 		
-		for (int i = 0; i < word.length(); i++);
-			
 		
 		
 		
@@ -75,6 +71,7 @@ public class Trie {
 		// TODO Get the best matches using BFS.
 		
 		return matches;
+
 	}
 	
 	
