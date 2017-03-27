@@ -1,7 +1,11 @@
 package sorting;
 
-import adts.Bag;
+import java.util.ArrayList;
 
+/**
+ * Trie data structure used to store and search many Strings efficiently.
+ * @author Group 1
+ */
 public class Trie {
 
 	// Root of our Trie data structure (no predecessor, letter is a space).
@@ -9,16 +13,16 @@ public class Trie {
 	
 	/**
 	 * Private letter class that acts as a node in a graph.
-	 * @author Daniel Wolff
+	 * @author Group 1
 	 */
 	private class Letter {
 		
 		// Each letter node holds a character, a pointer to the letter that refers to it,
-		// a bag of letters that extend from it, and a counter for how many words terminate
+		// an arraylist of letters that extend from it, and a counter for how many words terminate
 		// at this character.
 		private char letter;
 		private Letter pre;
-		private Bag<Letter> next;
+		private ArrayList<Letter> next;
 		private int terminates;
 		
 		/**
