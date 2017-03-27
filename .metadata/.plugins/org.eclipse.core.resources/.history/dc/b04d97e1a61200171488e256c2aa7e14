@@ -52,8 +52,6 @@ public class Trie {
 	 */
 	public void addWord(String word) {
 		
-		// TODO Add a word to the Trie.
-		
 	}
 	
 	/**
@@ -67,7 +65,7 @@ public class Trie {
 	public int[] getBestMatches(String query, int num) {
 		int[] matches = new int[num];
 		
-		// TODO Get the best matches using BFS.
+		//TODO Get the best matches using BFS.
 		
 		return matches;
 	}

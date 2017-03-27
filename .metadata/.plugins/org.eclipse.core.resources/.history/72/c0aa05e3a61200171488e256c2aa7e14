@@ -52,7 +52,7 @@ public class Trie {
 	 */
 	public void addWord(String word) {
 		
-		// TODO Add a word to the Trie.
+		// TODO Add a word to the Trie
 		
 	}
 	
