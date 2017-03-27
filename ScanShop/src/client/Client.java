@@ -9,10 +9,12 @@ import sorting.Merge;
 public class Client {
 	
 	public static void main(String[] args) {
+		/*
 		Product[] parr = MakeProductArray.make(JsonReader.read());
 		Merge.sort(parr);
 		for (int i = 0; i < parr.length; i++)
 			System.out.println(parr[i].toString());
 		System.out.println(BinarySearch.titleOf(parr, "0000000868"));
+		*/
 	}
 }
