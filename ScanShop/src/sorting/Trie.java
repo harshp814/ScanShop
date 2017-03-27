@@ -54,7 +54,8 @@ public class Trie {
 		
 		// TODO Add a word to the Trie.
 		
-		
+		for (int i = 0; i < word.length(); i++);
+			
 		
 		
 		
