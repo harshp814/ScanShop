@@ -93,102 +93,130 @@ public class Trie {
 	 */
 	public void addWord(String word, int ind) {
 		
-		// TODO Add a word to the Trie.
-		
 		Letter cur = root;
-		int index = 0;
 		
-		while (index < word.length()) {
-			
-			boolean cont = true;
-			
-			for (Node n : cur.next) {
-				if (n instanceof Suffix) {
-					if (((Suffix) n).suff.equals(word.substring(index))) {
-						n.words.add(ind);
-						return;
-					}
-					else if (((Suffix) n).suff.charAt(0) == word.substring(index).charAt(0)){
-						breakInWord(n, word.substring(index), ind);
-						return;
-					}
-				}
-				else {
-					if (((Letter) n).letter == word.charAt(index)) {
+		int index = 0;
+		int length = word.length();
+		
+		// TRACE TRIE
+		while (index < length) {
+			boolean skip = true;
+			for (Node n : cur.next ) {
+				if (n instanceof Letter) {
+					if (((Letter) n).letter == word.charAt(0)) {
 						cur = (Letter) n;
-						cont = false;
+						word = word.substring(1);
+						skip = false;
 						break;
 					}
 				}
 			}
-			
-			if (cont) break;
+			if (skip) break;
 			index++;
 		}
 		
-		if (index < word.length()) {
-			Node newN;
-			if (word.substring(index).length() > 1) 
-				newN = new Suffix(word.substring(index), cur);
-			else 
-				newN = new Letter(word.charAt(index), cur);
-			newN.words.add(ind);
-			cur.next.add(newN);
+		// If the word has been found within the initial trace, add
+		// the word to the correct node.
+		if (word.length() == 0) {
+			cur.words.add(ind);
+			return;
 		}
-		else cur.words.add(ind); 
-		/*
-		while (index < word.length()) {
-			boolean cont = true;
-			for (Letter l : cur.next) 
-				if (l.letter == word.charAt(index)) {
-					cur = l;
-					cont = false;
-					break;
+		
+		// Check for any suffix that contains a first letter to the
+		// leftover word.
+		for (Node n : cur.next) {
+			if (n instanceof Suffix) {
+				// If the suffix perfectly matches the rest of the word,
+				// just add the index of the word to the node because we
+				// have found duplicate data.
+				if (((Suffix) n).suff.equals(word)) {
+					n.words.add(ind);
+					return;
 				}
-			if (cont) break;
-			index++;
+				// If a suffix with a matching first letter is found,
+				// break the suffix recursively.
+				if (((Suffix) n).suff.charAt(0) == word.charAt(0)) {
+					breakSuffix((Suffix) n, word, ind);
+					return;
+				}
+			}
 		}
 		
-		while (index < word.length()) {
-			Letter next = new Letter(word.charAt(index), cur);
-			cur.next.add(next);
-			cur = next;
-			index++;
-		}
+		// If no matching suffix was found, add a suffix.
+		Suffix newSuffix = new Suffix(word, cur);
+		newSuffix.words.add(ind);
+		cur.next.add(newSuffix);
 		
-		cur.words.add(ind);
-		*/
 	}
 	
-	private void breakInWord(Node n, String word, int ind) {
+	private void breakSuffix(Suffix n, String word, int ind) {
+		// TODO break suffix recursively.
 		
+		// Remember the base node where the breaking begins.
+		Letter base = (Letter) n.pre;
+		// Remove the suffix from it's predecessors "next".
+		base.next.remove(n);
+		// Remember the current predecessor Letter as we break - start at base.
+		Letter curPre = base;
+		
+		// Calculate the maximum times we can break.
+		int maxBreak = Math.min(n.suff.length(), word.length());
+		// Keep track of index.
 		int index = 0;
 		
-		Suffix node = (Suffix) n;
-		Letter cur = (Letter) node.pre;
-		cur.next.remove(n);
-		
-		while (index < word.length() && node.suff.length() > 0 && node.suff.charAt(0) == word.charAt(index)) {
-			Letter newN = new Letter(word.charAt(index), cur);
-			cur.next.add(newN);
-			node.suff = node.suff.substring(1);
-			cur = newN;
+		while (index < maxBreak && n.suff.charAt(0) == word.charAt(0)) {
+			
+			// Create new letter and link it to the predecessor.
+			Letter newLetter = new Letter(word.charAt(0), curPre);
+			curPre.next.add(newLetter);
+			
+			// Shorten the suffix and word.
+			if (n.suff.length() == 1) n.suff = "";
+			else n.suff = n.suff.substring(1);
+			if (word.length() == 1) word = "";
+			else word = word.substring(1);
+			
+			// Move the current predecessor to the new Letter made.
+			curPre = newLetter;
 			index++;
 		}
-		if (node.suff.length() > 0) {
-			cur.next.add(node);
-			node.pre = cur;
+		
+		// If the leftover suffix has more than one letter in it, just add
+		// it back on to the end of curPre.
+		if (n.suff.length() > 1) {
+			n.pre = curPre;
+			curPre.next.add(n);
 		}
-		
-		Node other;
-		if (word.substring(index).length() > 1) 
-			other = new Suffix(word.substring(index), cur);
-		else if (word.substring(index).length() > 0)
-			other = new Letter(word.substring(index).charAt(0), cur);
-		else return;
-		other.words.add(ind);
-		cur.next.add(other);
-		
+		// If the leftover suffix has only one letter, create a letter object
+		// and add that on to the end of curPre.
+		else if (n.suff.length() > 0) {
+			Letter newLetter = new Letter(n.suff.charAt(0), curPre);
+			newLetter.words.addAll(n.words);
+			curPre.next.add(newLetter);
+		}
+		// If the leftover suffix has no letters, add the suffixes words to the
+		// curPre.
+		else {
+			curPre.words.addAll(n.words);
+		}
+		// If the leftover word has more than one letter in it, create a new
+		// suffix object and add it onto the end of curPre.
+		if (word.length() > 1 ) {
+			Suffix newSuffix = new Suffix(word, curPre);
+			newSuffix.words.add(ind);
+			curPre.next.add(newSuffix);
+		}
+		// If the leftover word has only one letter, create a letter object 
+		// and add that on to the end of curPre.
+		else if (word.length() > 0) {
+			Letter newLetter = new Letter(word.charAt(0), curPre);
+			newLetter.words.add(ind);
+			curPre.next.add(newLetter);
+		}
+		// If the leftover word has no letters, add the word index to the curPre.
+		else {
+			curPre.words.add(ind);
+		}
 	}
 	
 	/**
@@ -216,7 +244,7 @@ public class Trie {
 		
 		if (node instanceof Suffix) System.out.println(buff + ((Suffix) node).suff + " : " + node.words.size());
 		else  {
-			System.out.println(buff + ((Letter) node).letter + " : " + node.words.size());
+			System.out.println(buff + ((Letter) node).letter + /*" : " + node.getClass() +*/ " : " + node.words.size());
 
 			for (Node n : ((Letter) node).next) {
 				_printTree_(n, buff + " ");

@@ -22,6 +22,18 @@ public class Client {
 		
 		Trie t = new Trie();
 		
+		t.addWord("Wol", 0);
+		t.addWord("Dan", 0);
+		t.addWord("Daniel", 0);
+		t.addWord("Danny", 0);
+		t.addWord("Wolff", 0);
+		t.addWord("Wolffffff", 0);
+		t.addWord("Wolffy", 0);
+		t.addWord("Dan", 0);
+		t.addWord("Dad", 0);
+		t.addWord("Tommy", 0);
+		
+		
 		t.addWord("Daniel", 0);
 		t.addWord("Danny", 0);
 		t.addWord("Damn", 0);
