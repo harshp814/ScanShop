@@ -11,19 +11,35 @@ public class Trie {
 	// Root of our Trie data structure (no predecessor, letter is a space).
 	Letter root;
 	
+	
+	
 	/**
-	 * Private letter class that acts as a node in a graph.
+	 * Node class that Letter and Suffix extend from.
 	 * @author Group 1
 	 */
-	private class Letter {
+	private class Node {
 		
-		// Each letter node holds a character, a pointer to the letter that refers to it,
-		// an arraylist of letters that extend from it, and an arraylist of the indices of
-		// the words that terminate at the Letter.
+		protected Node pre;
+		protected ArrayList<Integer> words;
+		
+		/**
+		 * Create a new Node by providing a predecessor Node.
+		 * @param pre Node representing the Node that links to this Node.
+		 */
+		public Node(Node pre) {
+			this.pre = pre;
+			words = new ArrayList<Integer>();
+		}
+	}
+		
+	/**
+	 * Private Letter class that acts as a node in a graph.
+	 * @author Group 1
+	 */
+	private class Letter extends Node {
+		
 		private char letter;
-		private Letter pre;
 		private ArrayList<Letter> next;
-		private ArrayList<Integer> words;
 		
 		/**
 		 * Create a new letter with the given character and predecessor.
@@ -31,13 +47,35 @@ public class Trie {
 		 * @param pre Letter object representing the Letter that references this Letter.
 		 */
 		public Letter(char letter, Letter pre) {
+			super(pre);
 			this.letter = letter;
-			this.pre = pre;
 			next = new ArrayList<Letter>();
-			words = new ArrayList<Integer>();
 		}
 	}
+	
+	/**
+	 * Private Suffix class hat acts as a node in a graph.
+	 * @author Group 1
+	 *
+	 */
+	private class Suffix extends Node {
 
+		private String suff;
+		
+		/**
+		 * Create a Suffix object from a String and a predecessor Node.
+		 * @param suff String representing the Suffix.
+		 * @param pre Node representing the Node that links to this Node.
+		 */
+		public Suffix(String suff, Node pre) {
+			super(pre);
+			this.suff = suff;
+		}
+
+	}
+
+	
+	
 	/**
 	 * Instantiates a new Trie object with an empty root.
 	 */
@@ -56,6 +94,14 @@ public class Trie {
 		Letter cur = root;
 		int index = 0;
 		
+		while (index < word.length()) {
+			
+			for (Node n : cur.next) {
+				
+			}
+		}
+		
+		/*
 		while (index < word.length()) {
 			boolean cont = true;
 			for (Letter l : cur.next) 
@@ -76,7 +122,7 @@ public class Trie {
 		}
 		
 		cur.words.add(ind);
-		
+		*/
 	}
 	
 	/**
