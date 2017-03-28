@@ -126,14 +126,16 @@ public class Trie {
 			index++;
 		}
 		
-		Node newN;
-		if (word.substring(index).length() > 1) 
-			newN = new Suffix(word.substring(index), cur);
-		else 
-			newN = new Letter(word.charAt(0), cur);
-		newN.words.add(ind);
-		cur.next.add(newN);
-		
+		if (index < word.length()) {
+			Node newN;
+			if (word.substring(index).length() > 1) 
+				newN = new Suffix(word.substring(index), cur);
+			else 
+				newN = new Letter(word.charAt(index), cur);
+			newN.words.add(ind);
+			cur.next.add(newN);
+		}
+		else cur.words.add(ind); 
 		/*
 		while (index < word.length()) {
 			boolean cont = true;
@@ -208,17 +210,13 @@ public class Trie {
 	
 	public void printTree() {
 		_printTree_(root, "");
-		
-		System.out.println("\nROOT:");
-		for (Node n : root.next) System.out.println(n);
-		
 	}
 	
 	private void _printTree_(Node node, String buff) {
 		
-		if (node instanceof Suffix) System.out.println(buff + ((Suffix) node).suff);
+		if (node instanceof Suffix) System.out.println(buff + ((Suffix) node).suff + " : " + node.words.size());
 		else  {
-			System.out.println(buff + ((Letter) node).letter);
+			System.out.println(buff + ((Letter) node).letter + " : " + node.words.size());
 
 			for (Node n : ((Letter) node).next) {
 				_printTree_(n, buff + " ");
@@ -230,13 +228,14 @@ public class Trie {
 		_printData_(root, "");
 	}
 	
-	private void _printData_(Node node, String buff) {
+	private void _printData_(Node node, String word) {
 	
+		for (int i = 0; i < node.words.size(); i++) {
+			System.out.println(word + node.toString() + " : " + node.words.size());
+		}
+		if (node instanceof Suffix) return;
 		for (Node n : ((Letter) node).next) {
-			if (n instanceof Suffix) 
-				System.out.println(buff + ((Suffix) n).suff);
-			else
-				_printData_(n, buff + ((Letter) n).letter);
+			_printData_(n, word + node.toString());
 		}
 		
 	}

@@ -22,14 +22,15 @@ public class Client {
 		
 		Trie t = new Trie();
 		
-		t.addWord("Wolff", 2);
 		t.addWord("Daniel", 0);
 		t.addWord("Danny", 0);
 		t.addWord("Damn", 0);
-		t.addWord("Damnit", 0);
+		t.addWord("Dan", 0);
+		t.addWord("Wolfffffff", 0);
 		t.addWord("Wolff", 0);
-		t.addWord("Dannyboyyyy", 0);
-		
+		t.addWord("W", 0);
+		t.addWord("Wolf", 0);
+		t.addWord("Dad", 0);
 		
 		t.printTree();
 		//t.printData();
