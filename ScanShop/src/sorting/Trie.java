@@ -39,7 +39,7 @@ public class Trie {
 	private class Letter extends Node {
 		
 		private char letter;
-		private ArrayList<Letter> next;
+		private ArrayList<Node> next;
 		
 		/**
 		 * Create a new letter with the given character and predecessor.
@@ -49,8 +49,10 @@ public class Trie {
 		public Letter(char letter, Letter pre) {
 			super(pre);
 			this.letter = letter;
-			next = new ArrayList<Letter>();
+			next = new ArrayList<Node>();
 		}
+		
+		public String toString() { return Character.toString(letter); }
 	}
 	
 	/**
@@ -71,6 +73,8 @@ public class Trie {
 			super(pre);
 			this.suff = suff;
 		}
+		
+		public String toString() { return suff; }
 
 	}
 
@@ -96,10 +100,39 @@ public class Trie {
 		
 		while (index < word.length()) {
 			
+			boolean cont = true;
+			
 			for (Node n : cur.next) {
-				
+				if (n instanceof Suffix) {
+					if (((Suffix) n).suff.equals(word.substring(index))) {
+						n.words.add(ind);
+						return;
+					}
+					else if (((Suffix) n).suff.charAt(0) == word.substring(index).charAt(0)){
+						breakInWord(n, word.substring(index), ind);
+						return;
+					}
+				}
+				else {
+					if (((Letter) n).letter == word.charAt(index)) {
+						cur = (Letter) n;
+						cont = false;
+						break;
+					}
+				}
 			}
+			
+			if (cont) break;
+			index++;
 		}
+		
+		Node newN;
+		if (word.substring(index).length() > 1) 
+			newN = new Suffix(word.substring(index), cur);
+		else 
+			newN = new Letter(word.charAt(0), cur);
+		newN.words.add(ind);
+		cur.next.add(newN);
 		
 		/*
 		while (index < word.length()) {
@@ -125,6 +158,37 @@ public class Trie {
 		*/
 	}
 	
+	private void breakInWord(Node n, String word, int ind) {
+		
+		int index = 0;
+		
+		Suffix node = (Suffix) n;
+		Letter cur = (Letter) node.pre;
+		cur.next.remove(n);
+		
+		while (index < word.length() && node.suff.length() > 0 && node.suff.charAt(0) == word.charAt(index)) {
+			Letter newN = new Letter(word.charAt(index), cur);
+			cur.next.add(newN);
+			node.suff = node.suff.substring(1);
+			cur = newN;
+			index++;
+		}
+		if (node.suff.length() > 0) {
+			cur.next.add(node);
+			node.pre = cur;
+		}
+		
+		Node other;
+		if (word.substring(index).length() > 1) 
+			other = new Suffix(word.substring(index), cur);
+		else if (word.substring(index).length() > 0)
+			other = new Letter(word.substring(index).charAt(0), cur);
+		else return;
+		other.words.add(ind);
+		cur.next.add(other);
+		
+	}
+	
 	/**
 	 * Searches the Trie data structure for the closest matches to the given query String.
 	 * A close match is a String that is of shortest distance to the query in the Trie
@@ -142,17 +206,39 @@ public class Trie {
 
 	}
 	
+	public void printTree() {
+		_printTree_(root, "");
+		
+		System.out.println("\nROOT:");
+		for (Node n : root.next) System.out.println(n);
+		
+	}
+	
+	private void _printTree_(Node node, String buff) {
+		
+		if (node instanceof Suffix) System.out.println(buff + ((Suffix) node).suff);
+		else  {
+			System.out.println(buff + ((Letter) node).letter);
+
+			for (Node n : ((Letter) node).next) {
+				_printTree_(n, buff + " ");
+			}
+		}
+	}
+	
 	public void printData() {
 		_printData_(root, "");
 	}
 	
-	private void _printData_(Letter node, String buff) {
-		
-		if (node.words.size() > 0)
-			System.out.println(buff);
-		for (Letter l : node.next) {
-			_printData_(l, buff + l.letter);
+	private void _printData_(Node node, String buff) {
+	
+		for (Node n : ((Letter) node).next) {
+			if (n instanceof Suffix) 
+				System.out.println(buff + ((Suffix) n).suff);
+			else
+				_printData_(n, buff + ((Letter) n).letter);
 		}
+		
 	}
 	
 }
