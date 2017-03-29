@@ -15,6 +15,8 @@ public class MakeProductArray {
 		
 		Trie t = new Trie();
 		
+		double now = System.nanoTime();
+		
 		for (int i = 0; i < jsonArray.size(); i++) {
 			JSONObject product = (JSONObject) jsonArray.get(i);
 			
@@ -37,8 +39,25 @@ public class MakeProductArray {
 		
 		}
 		
-		t.printData();
+		System.out.println("Build time: " + (System.nanoTime() - now)/1000000000);
+
+		// Uncomment the next line.. IF YOU DARE
+		//t.printTree();
+		
+		String query = "algorithms";
+		
+		now = System.nanoTime();
+		int[] res = t.getBestMatches(query, 5);
+		System.out.println("Search time: " + (System.nanoTime() - now)/1000000000);
+
+		System.out.println("\nNumber of Strings: " + t.getNumStrings());
+		System.out.println("Number of Nodes: " + t.getNumNodes());
+		
+		System.out.println("\nResults for query: \"" + query + "\" : ");
+		for (int i : res) 
+			System.out.printf("Index: %8d \tTitle: %s%n", i,productArray[i].title());
 		
 		return productArray;
+		
 	}
 }

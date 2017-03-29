@@ -11,41 +11,26 @@ public class Client {
 	
 	public static void main(String[] args) {
 		
-		//Product[] parr = MakeProductArray.make(JsonReader.read());
+		
+		
+		Product[] parr = MakeProductArray.make(JsonReader.read());
+		
 		
 		//Merge.sort(parr);
 		//for (int i = 0; i < parr.length; i++)
 		//	System.out.println(parr[i].toString());
 		//System.out.println(BinarySearch.titleOf(parr, "0000000868"));
 		
-		
-		
-		Trie t = new Trie();
-		
-		t.addWord("Wol", 0);
-		t.addWord("Dan", 0);
+		/*
 		t.addWord("Daniel", 0);
-		t.addWord("Danny", 0);
-		t.addWord("Wolff", 0);
-		t.addWord("Wolffffff", 0);
-		t.addWord("Wolffy", 0);
-		t.addWord("Dan", 0);
-		t.addWord("Dad", 0);
-		t.addWord("Tommy", 0);
+		t.addWord("Danny", 1);
+		t.addWord("DanielWolff", 2);
+		t.addWord("DannyWolff", 3);
+		t.addWord("DanWolff", 4);
+		t.addWord("Wolff", 5);
+		*/
 		
 		
-		t.addWord("Daniel", 0);
-		t.addWord("Danny", 0);
-		t.addWord("Damn", 0);
-		t.addWord("Dan", 0);
-		t.addWord("Wolfffffff", 0);
-		t.addWord("Wolff", 0);
-		t.addWord("W", 0);
-		t.addWord("Wolf", 0);
-		t.addWord("Dad", 0);
-		
-		t.printTree();
-		//t.printData();
 		
 	}
 }
