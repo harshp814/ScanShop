@@ -68,17 +68,21 @@ import java.io.Reader;
 import java.util.zip.GZIPInputStream;
 
 public class JsonReader {
-	private static final String infile = "amazon_rawdata.json.gz";
-	private static FileInputStream file;
-	private static InputStreamReader reader;
 	
-	private static GZIPInputStream gzip;
-	private static BufferedReader in;
-	private static JSONParser parser;
-	private static JSONObject jsonObject;
-	private static JSONArray jsonArray;
+	private FileInputStream file;
+	private InputStreamReader reader;
 	
-	private JsonReader() {  }
+	private GZIPInputStream gzip;
+	private BufferedReader in;
+	private JSONParser parser;
+	private JSONObject jsonObject;
+	private JSONArray jsonArray;
+	
+	private String filename;
+	
+	public JsonReader(String filename) { 
+		this.filename = filename;
+	}
 	
      /**
       * Reads the input file and returns String representations of JSON objects
@@ -86,10 +90,10 @@ public class JsonReader {
       * @exception IOException  
       * @exception ParseException 
       */
-	public static JSONArray read() {
+	public JSONArray read() {
 		try {
 			
-			file = new FileInputStream(infile);
+			file = new FileInputStream(filename);
 			gzip = new GZIPInputStream(file);
 			reader = new InputStreamReader(gzip);
 			in = new BufferedReader(reader);
