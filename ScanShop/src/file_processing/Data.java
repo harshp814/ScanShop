@@ -84,8 +84,14 @@ public class Data {
 		return BinarySearch.searchID(sortedArray, productArray, barcode);
 	}
 	
-	public static Product[] searchByTitle(String query) {
+	public static Product[] searchByTitle(String query, int num) {
 		
-		return null;
+		int[] res = productTitles.getBestMatches(query, num);
+		Product[] prods = new Product[num];
+		
+		for (int ind = 0; ind < num; ind++) 
+			prods[ind] = productArray[res[ind]];
+		
+		return prods;
 	}
 }
