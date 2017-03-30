@@ -13,7 +13,7 @@ public class Client {
 	
 	public static void main(String[] args) {
 		
-		Product[] parr = Data.init(JSON_FILE_NAME);
+		Data.init(JSON_FILE_NAME);
 		
 		
 		//Merge.sort(parr);

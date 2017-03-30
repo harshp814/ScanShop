@@ -1,5 +1,7 @@
 package sorting;
 
+import adts.Product;
+
 public class Merge {
 
     private Merge() { }
@@ -8,10 +10,9 @@ public class Merge {
      * Sorts the array from lowest to highest value
      * @param a The input array
      */
-    public static void sort(Comparable[] a) {
-        Comparable[] aux = new Comparable[a.length];
-        sort(a, aux, 0, a.length-1);
-        assert isSorted(a);
+    public static void sort(int[] ind, Product[] prods) {
+        int[] aux = new int[ind.length];
+        sort(ind, aux, 0, ind.length-1, prods);
     }
     
     /**
@@ -22,10 +23,7 @@ public class Merge {
      * @param mid The middle index of the subarray
      * @param hi The highest index of the subarray
      */
-    private static void merge(Comparable[] a, Comparable[] aux, int lo, int mid, int hi) {
-    	// making sure the two subarrays are sorted
-        assert isSorted(a, lo, mid);
-        assert isSorted(a, mid+1, hi);
+    private static void merge(int[] a, int[] aux, int lo, int mid, int hi, Product[] prods) {
 
         // copying to aux
         for (int k = lo; k <= hi; k++) {
@@ -37,12 +35,10 @@ public class Merge {
         for (int k = lo; k <= hi; k++) {
             if      (i > mid)              a[k] = aux[j++];
             else if (j > hi)               a[k] = aux[i++];
-            else if (aux[j].compareTo(aux[i]) < 0) a[k] = aux[j++];
+            else if (prods[aux[j]].compareTo(prods[aux[i]]) < 0) a[k] = aux[j++];
             else                           a[k] = aux[i++];
         }
         
-        // making sure the array is now sorted
-        assert isSorted(a, lo, hi);
     }
     
     /**
@@ -52,29 +48,12 @@ public class Merge {
      * @param lo The leftmost index of the current subarray
      * @param hi The rightmost index of the current subarray
      */
-    private static void sort(Comparable[] a, Comparable[] aux, int lo, int hi) {
+    private static void sort(int[] a, int[] aux, int lo, int hi, Product[] prods) {
         if (hi <= lo) return;
         int mid = lo + (hi - lo) / 2;
-        sort(a, aux, lo, mid);
-        sort(a, aux, mid + 1, hi);
-        merge(a, aux, lo, mid, hi);
+        sort(a, aux, lo, mid, prods);
+        sort(a, aux, mid + 1, hi, prods);
+        merge(a, aux, lo, mid, hi, prods);
     }
 
-    private static boolean isSorted(Comparable[] a, int lo, int hi) {
-        for (int i = lo + 1; i <= hi; i++)
-            if (a[i].compareTo(a[i-1]) < 0) return false;
-        return true;
-    }
-    
-    private static boolean isSorted(Comparable[] a) {
-        return isSorted(a, 0, a.length - 1);
-    }
-
-    public static void main(String[] args) {
-    	Integer[] arr = {5, 4, 3, 2, 1};
-    	Merge.sort(arr);
-    	for (int i = 0; i < arr.length; i++) {
-    		System.out.println(arr[i]);
-    	}
-    }
 }

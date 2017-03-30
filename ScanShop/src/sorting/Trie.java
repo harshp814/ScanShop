@@ -101,6 +101,7 @@ public class Trie {
 		
 		Letter cur = root;
 		size++;
+		word = word.toLowerCase();
 		
 		int index = 0;
 		int length = word.length();

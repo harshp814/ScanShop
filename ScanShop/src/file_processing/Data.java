@@ -4,6 +4,7 @@ import adts.Product;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import sorting.Merge;
 import sorting.Trie;
 
 /**
@@ -18,6 +19,13 @@ public class Data {
 	// Define a product ADT array to store our product objects once they are read
 	// from the JSON file.
 	private static Product[] productArray;
+	// Define an Integer array that will allow us to sort the products by
+	// their barcode (ID) without affecting the order of the productArray.
+	// This is needed because of how the Trie stores the index of a product title. 
+	private static int[] sortedArray;
+	// Define a Trie to store all of the titles of the products. This allows us
+	// to quickly search strings based on an input string.
+	private static Trie productTitles;
 	
 	/**
 	 * Initialization method for our abstract object. This method
@@ -25,7 +33,7 @@ public class Data {
 	 * @param filename
 	 * @return
 	 */
-	public static Product[] init(String filename) {
+	public static void init(String filename) {
 		
 		// Initialize a new JsonReader object.
 		jsonFile = new JsonReader(filename);
@@ -34,7 +42,9 @@ public class Data {
 		// Initialize the product array.
 		productArray = new Product[jsonArray.size()];
 		// Initialize a product index array (for sorting).
-		
+		sortedArray = new int[jsonArray.size()];
+		// Initialize the Trie data structure to organize titles of products.
+		productTitles = new Trie();
 		
 		// Loop through the JSON array to retrieve the product information.
 		for (int i = 0; i < jsonArray.size(); i++) {
@@ -47,6 +57,9 @@ public class Data {
 			String asin = (String) product.get("asin");
 			double price = (Double) product.get("price");
 			
+			// Add the title to the Trie.
+			productTitles.addWord(title, i);
+			
 			// Get the barcode from the product (can be UPC or EAN).
 			long barcode;
 			if (product.get("upc") != null) 
@@ -56,29 +69,19 @@ public class Data {
 			
 			// Create a new Product object with the data.
 			productArray[i] = new Product(asin, title, price, barcode);
-		
+			// Add the index to the sortedArray array.
+			sortedArray[i] = i;
+			
 		}
 		
-		/*
-		System.out.println("Build time: " + (System.nanoTime() - now)/1000000000);
-
-		// Uncomment the next line.. IF YOU DARE
-		//t.printTree();
+		// Sort the index array relative to the products in the product Array.
+		Merge.sort(sortedArray, productArray);
 		
-		String query = "algorithms (4th edition)";
+		int[] res = productTitles.getBestMatches("algorithms", 10);
 		
-		now = System.nanoTime();
-		int[] res = t.getBestMatches(query, 10);
-		System.out.println("Search time: " + (System.nanoTime() - now)/1000000000);
-
-		System.out.println("\nNumber of Strings: " + t.getNumStrings());
-		System.out.println("Number of Nodes: " + t.getNumNodes());
-		
-		System.out.println("\nResults for query: \"" + query + "\" : ");
-		for (int i : res) 
-			System.out.printf("Index: %8d \tASIN: %s : %s%n", i,productArray[i].title(),productArray[i].asin());
-		*/
-		return productArray;
+		for (int i : res) System.out.println(i + " : " + productArray[i].title() + " : " + productArray[i].id());
 		
 	}
+	
+	//public searchByBarcode(){}
 }
