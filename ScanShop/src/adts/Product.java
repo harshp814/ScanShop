@@ -1,10 +1,10 @@
 package adts;
 
 public class Product implements Comparable<Product> {
-	private String asin;
-	private String title;
-	private double price;
-	private long id; // either upc or ean code
+	private String asin;	// asin of the product
+	private String title;	// name of the product
+	private double price;	// price of the product
+	private long id; 		// either upc or ean code
 
 	/**
 	 * Constructor method for product 
@@ -61,10 +61,10 @@ public class Product implements Comparable<Product> {
 	 * 		   0 if both products have the same asin and price
 	 */
 	public int compareTo(Product other) {
-		if (asin.compareTo(other.asin()) > 0)
-			return 1;
-		else if	(asin.compareTo(other.asin()) < 0)
+		if (id < other.id())
 			return -1;
+		else if (id > other.id())
+			return 1;
 		else if (this.price > other.price)
 			return 1;
 		else if (this.price < other.price)

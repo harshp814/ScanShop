@@ -5,7 +5,6 @@ import file_processing.JsonReader;
 import file_processing.MakeProductArray;
 import searching.BinarySearch;
 import sorting.Merge;
-import sorting.Trie;
 
 public class Client {
 	
@@ -13,7 +12,7 @@ public class Client {
 		
 		
 		
-		Product[] parr = MakeProductArray.make(JsonReader.read());
+		Product[] parr = MakeProductArray.make(JsonReader.read());		
 		
 		
 		//Merge.sort(parr);
