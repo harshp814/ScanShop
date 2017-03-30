@@ -1,19 +1,19 @@
 package client;
 
 import adts.Product;
+import file_processing.Data;
 import file_processing.JsonReader;
-import file_processing.MakeProductArray;
 import searching.BinarySearch;
 import sorting.Merge;
 import sorting.Trie;
 
 public class Client {
 	
+	private final static String JSON_FILE_NAME = "amazon_rawdata.json.gz";
+	
 	public static void main(String[] args) {
 		
-		
-		
-		Product[] parr = MakeProductArray.make(JsonReader.read());
+		Product[] parr = Data.init(JSON_FILE_NAME);
 		
 		
 		//Merge.sort(parr);
