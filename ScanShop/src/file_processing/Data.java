@@ -4,6 +4,7 @@ import adts.Product;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import searching.BinarySearch;
 import sorting.Merge;
 import sorting.Trie;
 
@@ -77,11 +78,14 @@ public class Data {
 		// Sort the index array relative to the products in the product Array.
 		Merge.sort(sortedArray, productArray);
 		
-		int[] res = productTitles.getBestMatches("algorithms", 10);
-		
-		for (int i : res) System.out.println(i + " : " + productArray[i].title() + " : " + productArray[i].id());
-		
 	}
 	
-	//public searchByBarcode(){}
+	public static Product searchByBarcode(long barcode){
+		return BinarySearch.searchID(sortedArray, productArray, barcode);
+	}
+	
+	public static Product[] searchByTitle(String query) {
+		
+		return null;
+	}
 }
