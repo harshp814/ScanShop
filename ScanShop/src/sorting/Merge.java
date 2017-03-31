@@ -8,7 +8,8 @@ public class Merge {
     
     /**
      * Sorts the array from lowest to highest value
-     * @param a The input array
+     * @param ind The index array
+     * @param prods The product array
      */
     public static void sort(int[] ind, Product[] prods) {
         int[] aux = new int[ind.length];
@@ -17,11 +18,12 @@ public class Merge {
     
     /**
      * Merges together two sorted subarrays
-     * @param a The input array
+     * @param a The array to sort.
      * @param aux Auxiliary array to hold values
      * @param lo The lowest index of the subarray
      * @param mid The middle index of the subarray
      * @param hi The highest index of the subarray
+     * @param prods The product array
      */
     private static void merge(int[] a, int[] aux, int lo, int mid, int hi, Product[] prods) {
 
@@ -43,10 +45,11 @@ public class Merge {
     
     /**
      * Sorts an array bottom-up by recursively merging sorted subarrays
-     * @param a Input array
+     * @param a Input array to sort
      * @param aux Auxiliary array to temporarily hold values
      * @param lo The leftmost index of the current subarray
      * @param hi The rightmost index of the current subarray
+     * @param prods The product array
      */
     private static void sort(int[] a, int[] aux, int lo, int hi, Product[] prods) {
         if (hi <= lo) return;

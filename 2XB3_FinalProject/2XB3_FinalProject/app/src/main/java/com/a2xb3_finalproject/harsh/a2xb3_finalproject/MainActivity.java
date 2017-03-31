@@ -27,25 +27,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Resources rs = getResources();
-        AssetManager am = getAssets();
 
         try {
-            Data.init(rs.openRawResource(R.raw.amazon_rawdata));
+            Data.init(rs.openRawResource(R.raw.dataset_refined9));
         } catch(Exception e) {
-            System.out.println("ERROR ================================ ");
+            System.out.println(" ScanShop: An error occured reading the file. Woops! ");
             e.printStackTrace();
         }
-        /*
-        try {
-            System.out.println(" OUTPUT: ");
-            for (String s : am.list("")) System.out.println(s);
-            System.out.println(" OUTPUT: ");
-            //Data.init(am.open("amazon_rawdata.json"));
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        */
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);

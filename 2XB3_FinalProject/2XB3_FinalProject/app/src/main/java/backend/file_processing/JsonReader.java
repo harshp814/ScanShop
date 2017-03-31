@@ -115,8 +115,6 @@ public class JsonReader {
 			reader = new InputStreamReader(file);
 			in = new BufferedReader(reader);
 
-			System.out.println(in.readLine());
-
 			parser = new JSONParser();
 			jsonObject = (JSONObject) parser.parse(in);	
 			jsonArray = (JSONArray) jsonObject.get("data");
