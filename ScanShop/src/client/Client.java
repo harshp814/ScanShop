@@ -13,12 +13,14 @@ public class Client {
 		Data.init(JSON_FILE_NAME);
 		System.out.println((System.nanoTime() - now) / 1000000000);
 		
-		Product prod = Data.searchByBarcode(Long.parseLong("9780321573513"));
-		System.out.println(prod.toString());
 		
-		System.out.println();
-		
-		Product[] ps = Data.searchByTitle("algorithms", 10);
+		Object prod = Data.searchByBarcode(Long.parseLong("978032"));
+		if (prod != null) {
+			System.out.println(prod.toString());
+			
+			System.out.println();
+		}
+		Product[] ps = Data.searchByTitle("algorithms (4th edition)", 10);
 		for (Product p : ps) System.out.println(p);
 	}
 }
