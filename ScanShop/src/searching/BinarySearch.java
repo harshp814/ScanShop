@@ -5,9 +5,10 @@ import adts.Product;
 public class BinarySearch {
 
     /**
-     * Searches for a product using asin number 
-     * @param a The input array of products
-     * @param asin The amazon standard identification number
+     * Performs a Binary search for a product relative to barcode number.
+     * @param ind Intger[] representing the index array.
+     * @param prods Product[] representing the dataset.
+     * @param id Long representing the barcode to search for.
      * @return The index of the product or -1 if no such product exists
      */
     public static Product searchID(int[] ind, Product[] prods, long id) {

@@ -11,7 +11,7 @@ public class Product implements Comparable<Product> {
 	 * @param asin Amazon standard identification number
 	 * @param title The title of the product
 	 * @param price The price of the product
-	 * @param upc Universal product code, or international article number (EAN)
+	 * @param id Universal product code, or international article number (EAN)
 	 */
 	public Product(String asin, String title, double price, long id) {
 		this.asin = asin;

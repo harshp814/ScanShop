@@ -80,18 +80,36 @@ public class Data {
 		
 	}
 	
+	/**
+	 * Perform a binary search on our dataset to find a matching barcode.
+	 * @param barcode Long number representing the barcode of the product.
+	 * @return Product object representing a product found in our dataset.
+	 *  Null is returned if no product can be found.
+	 */
 	public static Product searchByBarcode(long barcode){
+		// Return the binary search results.
 		return BinarySearch.searchID(sortedArray, productArray, barcode);
 	}
 	
+	/**
+	 * Perform a search by product title on our dataset. 
+	 * @param query String representing the desired title to search for.
+	 * @param num Integer representing the number of best matches to return.
+	 * @return Product[] representing the number of closest matches requested
+	 * by the user.
+	 */
 	public static Product[] searchByTitle(String query, int num) {
 		
+		// Get results from search
 		int[] res = productTitles.getBestMatches(query, num);
+		// Create Product array.
 		Product[] prods = new Product[num];
 		
+		// Transfer the results into their corresponding products.
 		for (int ind = 0; ind < num; ind++) 
 			prods[ind] = productArray[res[ind]];
 		
+		// Return the results.
 		return prods;
 	}
 }
