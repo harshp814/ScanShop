@@ -80,4 +80,6 @@ public class Product implements Comparable<Product> {
 	public String toString() {
 		return asin + ": (" + title + ") (" + price + ") (" + id +")";
 	}
+
+	public String toStringForAndroid() { return title + "\n" + "$" + price;}
 }
