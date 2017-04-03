@@ -7,6 +7,7 @@ import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -57,18 +58,23 @@ public class MainActivity extends AppCompatActivity {
                 Object[] prods = Data.searchByTitle(s, 5);
                 TextView textView = (TextView) findViewById(R.id.textView);
                 textView.setText(((Product) prods[0]).toStringForAndroid());
+                textView.setMovementMethod(new ScrollingMovementMethod());
 
                 TextView textView2 = (TextView) findViewById(R.id.textView2);
                 textView2.setText(((Product) prods[1]).toStringForAndroid());
+                textView2.setMovementMethod(new ScrollingMovementMethod());
 
                 TextView textView3 = (TextView) findViewById(R.id.textView3);
                 textView3.setText(((Product) prods[2]).toStringForAndroid());
+                textView3.setMovementMethod(new ScrollingMovementMethod());
 
                 TextView textView4 = (TextView) findViewById(R.id.textView4);
                 textView4.setText(((Product) prods[3]).toStringForAndroid());
+                textView4.setMovementMethod(new ScrollingMovementMethod());
 
                 TextView textView5 = (TextView) findViewById(R.id.textView5);
                 textView5.setText(((Product) prods[4]).toStringForAndroid());
+                textView5.setMovementMethod(new ScrollingMovementMethod());
             }
 //            public void onClick(View view) {
 //                productString = (EditText)findViewById(R.id.searchTextField);
