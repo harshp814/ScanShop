@@ -1,6 +1,9 @@
 package testing;
 
 import static org.junit.Assert.*;
+import java.util.Arrays;
+
+import java.util.ArrayList;
 
 import org.junit.After;
 import org.junit.Before;
@@ -21,12 +24,12 @@ public class Test_file {
 
 	@Before
 	public void setUp() throws Exception {
-		baseP = new Product("B00DR0PDNE","p1",29.45,170000000000L);
-		p2 = new Product("B00DR0PDNE","p2",6.12,170000000000L);
-		p3 = new Product("ODI9D5FG63","p3",29.45,120000000000L);
-		p4 = new Product("SG8WTH9WVV","p3",29.45,784965123497L);
-		p5 = new Product("B00DR0PDNE","p1",29.45,170000000000L);
-		p6 = new Product("B00DR0PDNE","p6",100.12,170000000000L);
+		baseP = new Product("B00DR0PDNE","flower",29.45,170000000000L);
+		p2 = new Product("B00DR0PDNE","fries",6.12,170000000000L);
+		p3 = new Product("ODI9D5FG63","peanut",29.45,120000000000L);
+		p4 = new Product("SG8WTH9WVV","cheese",29.45,784965123497L);
+		p5 = new Product("B00DR0PDNE","cap",29.45,170000000000L);
+		p6 = new Product("B00DR0PDNE","pepper",100.12,170000000000L);
 		
 	}
 
@@ -86,27 +89,106 @@ public class Test_file {
 	
 	@Test
 	public void testTrie() {
+		//Initialize trie
 		Trie trie1 = new Trie();
-		Trie trie2 = new Trie();
+		//Initialize reference array
+		ArrayList<String> str1 = new ArrayList<String>();
 		
-		trie1.addWord("add",0);
-		trie1.addWord("alpha",1);
-		trie1.addWord("air",2);
-		trie1.addWord("break",3);
-		trie1.addWord("bread",4);
-		trie1.addWord("red",5);
-		trie1.addWord("reed",6);
-		trie1.addWord("read",7);
+		//Add words to trie
+		trie1.addWord(baseP.title(),0);
+		str1.add(baseP.title());
 		
-		int [] w =trie1.getBestMatches("re", 5);
+		trie1.addWord(p2.title(),1);
+		str1.add(p2.title());
 		
-		for(int x = 0; x < 100; x ++){
-			trie2.addWord(Integer.toString(x), x);
+		trie1.addWord(p3.title(),2);
+		str1.add(p3.title());
+		
+		trie1.addWord(p4.title(),3);
+		str1.add(p4.title());
+		
+		trie1.addWord(p5.title(),4);
+		str1.add(p5.title());
+		
+		trie1.addWord(p6.title(),5);
+		str1.add(p6.title());
+		
+		
+
+		//Attempt to find "flower"
+		int [] w =trie1.getBestMatches("fl", 2);
+
+		for (int y = 0; y < w.length; y++){
+			if(str1.get(w[y]).equals("flower")){
+				assertTrue(true);
+				break;
+			}else if (y == w.length-1){
+				fail("could not find word");	
+			}
 		}
 		
-		trie2.printTree();
+		//Attempt to find peanut
+		w = trie1.getBestMatches("pea", 2);
 		
+		for (int y = 0; y < w.length; y++){
+			if(str1.get(w[y]).equals("peanut")){
+				assertTrue(true);
+				break;
+	
+			}else if (y == w.length-1){
+				fail("could not find word");	
+			}
+		}
 		
+		//Attempt to find word that is not in trie
+		w =trie1.getBestMatches("pea", 2);
+
+		for (int y = 0; y < w.length; y++){
+			if(str1.get(w[y]).equals("tree")){
+				fail("broken trie");
+				break;
+		
+			}else if (y == w.length-1){
+				assertTrue(true);
+			}
+		}
+		
+		//add more words to trie
+		trie1.addWord("heap",6);
+		str1.add("heap");
+		
+		trie1.addWord("hat",7);
+		str1.add("hat");
+		
+		trie1.addWord("fat",8);
+		str1.add("fat");
+		
+		//Attempt to find "heap"
+		w = trie1.getBestMatches("hea", 2);
+		
+		for (int y = 0; y < w.length; y++){
+			if(str1.get(w[y]).equals("heap")){
+				assertTrue(true);
+				break;
+	
+			}else if (y == w.length-1){
+				fail("could not find word");	
+			}
+		}
+		
+		//Attempt to find "fat"
+		w = trie1.getBestMatches("fa", 3);
+		
+		for (int y = 0; y < w.length; y++){
+			if(str1.get(w[y]).equals("fat")){
+				assertTrue(true);
+				break;
+	
+			}else if (y == w.length-1){
+				fail("could not find word");	
+			}
+		}
+
 	}
 	
 	@Test
