@@ -120,9 +120,9 @@ public class MainActivity extends AppCompatActivity {
                 Object o = Data.searchByBarcode(Long.parseLong(res));
 
                 if (o != null) {
-                    Toast.makeText(this, "Scanned: " + ((Product) o).toString(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Scanned: " + ((Product) o).toStringForAndroid(), Toast.LENGTH_LONG).show();
                     TextView textView = (TextView) findViewById(R.id.textView);
-                    textView.setText(o.toString());
+                    textView.setText(((Product) o).toStringForAndroid());
                 }
                 else
                     Toast.makeText(this, "Could not find product. Woops!", Toast.LENGTH_LONG).show();
