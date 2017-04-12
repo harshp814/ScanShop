@@ -80,4 +80,8 @@ public class Product implements Comparable<Product> {
 	public String toString() {
 		return asin + ": (" + title + ") (" + price + ") (" + id +")";
 	}
+	
+	public String readableString() {
+		return String.format("Name: %s \n\tPrice: %10f \t Barcode: %15d \t ASIN: %15s%n", title, price, id, asin);
+	}
 }
