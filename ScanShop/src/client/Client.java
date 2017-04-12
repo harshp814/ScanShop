@@ -98,7 +98,7 @@ public class Client {
 		Object res = Data.searchByBarcode(Long.parseLong(in));
 		
 		if (res == null) System.out.println("A product with the barcode " + in + " could not be found.");
-		else System.out.println("Product found! \n " + ((Product) res).readableString());
+		else System.out.println("Product found! \n\t" + ((Product) res).readableString());
 		
 		//waitSeconds(1);
 		
@@ -121,7 +121,24 @@ public class Client {
 		input.nextLine();
 		input.nextLine();
 	}
-	private static void displayAbout() {}
+	private static void displayAbout() {
+		lineBreak();
+		
+		System.out.println();
+		System.out.println(	"ScanShop is a product designed for the final project of McMaster's\n" +
+							"\"2XB3 - Software Engineering Practice and Experience\" course. \n\n" +
+							"Authors: Group 1:\n" +
+							"\tHarsh Patel\n" +
+							"\tRafay Leghari\n" +
+							"\tSaad Khan\n" +
+							"\tThomasDykstra\n" +
+							"\tDaniel Wolff"	);
+		System.out.println();
+		System.out.println("Press ENTER to continue");
+		input.nextLine();
+		input.nextLine();
+		
+	}
 	
 	private static boolean validBarcode(String in) {
 		
