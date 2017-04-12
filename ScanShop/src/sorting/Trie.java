@@ -30,6 +30,7 @@ public class Trie {
 		/**
 		 * Create a new Node by providing a predecessor Node.
 		 * @param pre Node representing the Node that links to this Node.
+		 * @param id Integer representing the ID of this Node.
 		 */
 		public Node(Node pre, int id) {
 			this.pre = pre;
@@ -51,6 +52,7 @@ public class Trie {
 		 * Create a new letter with the given character and predecessor.
 		 * @param letter char representing the character this Letter will be.
 		 * @param pre Letter object representing the Letter that references this Letter.
+		 * @param id Integer representing the ID of this Node.
 		 */
 		public Letter(char letter, Letter pre, int id) {
 			super(pre, id);
@@ -73,9 +75,10 @@ public class Trie {
 		/**
 		 * Create a Suffix object from a String and a predecessor Node.
 		 * @param suff String representing the Suffix.
-		 * @param pre Node representing the Node that links to this Node.
+		 * @param pre Letter representing the Letter that links to this Node.
+		 * @param id Integer representing the ID of this Node.
 		 */
-		public Suffix(String suff, Node pre, int id) {
+		public Suffix(String suff, Letter pre, int id) {
 			super(pre, id);
 			this.suff = suff;
 		}
@@ -106,7 +109,7 @@ public class Trie {
 		int index = 0;
 		int length = word.length();
 		
-		// TRACE TRIE
+		// TRACE TRIE TO DEADEND
 		while (index < length) {
 			boolean skip = true;
 			for (Node n : cur.next ) {
@@ -255,7 +258,7 @@ public class Trie {
 		int index = 0;
 		int length = word.length();
 		
-		// TRACE TO DEADEND
+		// TRACE TRIE TO DEADEND
 		while (index < length) {
 			boolean skip = true;
 			for (Node n : cur.next ) {
