@@ -5,6 +5,12 @@ import java.util.Scanner;
 import adts.Product;
 import file_processing.Data;
 
+/**
+ * An example client for the backend of our project. This is just for demonstration
+ * purposes - therefore it is not thoroughly documented like the rest of our project.
+ * Run this file if you wish to test our program.
+ * @author Group 1
+ */
 public class Client {
 	
 	private final static String JSON_FILE_NAME = "amazon_rawdata.json.gz";
@@ -24,29 +30,23 @@ public class Client {
 		
 		System.out.print("Setting up data... ");
 		
+		// Setup using Data.init()
 		double time = System.nanoTime();
 		Data.init(JSON_FILE_NAME);
 		System.out.println("Done.");
 		System.out.println("Setup took " + (System.nanoTime() - time) / 1000000000 + " seconds.\n");
 		
+		// Run menu until quit is selected.
 		while (menu() == true);
 		
 		System.out.println("\n===\tThank you for using ScanShop!\t===\n");
-		/*
 		
-		
-		
-		Object prod = Data.searchByBarcode(Long.parseLong("978032"));
-		if (prod != null) {
-			System.out.println(prod.toString());
-			
-			System.out.println();
-		}
-		Product[] ps = Data.searchByTitle("algorithms (4th edition)", 10);
-		for (Product p : ps) System.out.println(p);
-		*/
 	}
 	
+	/**
+	 * Main menu function.
+	 * @return Boolean representing whether the menu should still be run. 
+	 */
 	private static boolean menu() {
 		lineBreak();
 		
@@ -79,7 +79,9 @@ public class Client {
 		
 	}
 	
-
+	/**
+	 * Run the menu for searching by a barcode.
+	 */
 	private static void searchByBarcode() {
 		lineBreak();
 		
@@ -107,6 +109,10 @@ public class Client {
 		input.nextLine();
 		
 	}
+	
+	/**
+	 * Run the menu for searching by a product name.
+	 */
 	private static void searchByName() {
 		lineBreak();
 		
@@ -121,6 +127,10 @@ public class Client {
 		input.nextLine();
 		input.nextLine();
 	}
+	
+	/**
+	 * Run the menu for displaying information about ScanShop.
+	 */
 	private static void displayAbout() {
 		lineBreak();
 		
@@ -140,6 +150,12 @@ public class Client {
 		
 	}
 	
+	/**
+	 * Function for asserting a valid barcode has been entered.
+	 * (Checks to make sure the string is all numbers).
+	 * @param in String to validate.
+	 * @return Boolean whether or not the string is valid.
+	 */
 	private static boolean validBarcode(String in) {
 		
 		try {
@@ -149,6 +165,13 @@ public class Client {
 		
 		return true;
 	}
+	
+	/**
+	 * Function for asserting a valid menu option has been entered.
+	 * (Checks to see if the string is a number contained in [1,4].
+	 * @param in String to validate.
+	 * @return Boolean whether of not the string is valid.
+	 */
 	private static boolean validMenuOption(String in) {
 		
 		try {
@@ -159,5 +182,9 @@ public class Client {
 		
 		return true;
 	}	
+	
+	/**
+	 * Prints a line break.
+	 */
 	private static void lineBreak() { System.out.println("==================================================="); }
 }

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.zip.GZIPInputStream;
 
+// Importing from an external JSON library (JSON-simple library, found here: https://goo.gl/qQqx1r)
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -55,7 +56,7 @@ public class JsonReader {
 			reader = new InputStreamReader(gzip);
 			in = new BufferedReader(reader);
 			
-			// Use the JSONParser to read the JSON data.
+			// Use the JSONParser to read the JSON data (from external JSON-simple library).
 			parser = new JSONParser();
 			jsonObject = (JSONObject) parser.parse(in);	
 			jsonArray = (JSONArray) jsonObject.get("data");

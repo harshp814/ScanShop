@@ -3,8 +3,6 @@ package sorting;
 import adts.Product;
 
 public class Merge {
-
-    private Merge() { }
     
     /**
      * Sorts the array from lowest to highest value
