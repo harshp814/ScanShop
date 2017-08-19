@@ -1,6 +1,7 @@
 # 2XB3_Final Project
 2XB3 - Software Engineering and Pracice
 Group members:
+
 	Daniel Wolff
 	Harsh Patel
 	Rafay Leghari
